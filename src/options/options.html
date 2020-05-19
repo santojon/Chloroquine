@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chloroquine Options</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+    <!-- Top banner -->
+    <div class="container">
+        <div class="position-relative overflow-hidden m-md-3 text-center">
+            <img class="d-block mx-auto" src="logo.png" alt="logo" height="100px" width="200px">
+            <div class="col-md-8 p-lg-2 mx-auto">
+                <h1 class="display-6 font-weight-normal">Chloroquine</h1>
+                <p class="lead font-weight-normal">Add here your terms to replace</p>
+            </div>
+        </div>
+
+        <!-- Page content -->
+        <div class="col-md-12">
+            <!-- Terms add -->
+            <div class="row mb-5">
+                <table class="table table-striped">
+                    <!-- Table title -->
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="5">Term</th>
+                            <th colspan="6">Replacement</th>
+                            <th colspan="1"></th>
+                        </tr>
+                    </thead>
+
+                    <!-- Body to create mappings -->
+                    <tbody>
+                        <tr id="add-term-row">
+                            <!-- Term to add -->
+                            <td colspan="5">
+                                <input id="add-term" type="text" class="form-control">
+                            </td>
+
+                            <!-- Replacement to add -->
+                            <td colspan="6">
+                                <input id="add-replacement" type="text" class="form-control">
+                            </td>
+
+                            <!-- Add buttom -->
+                            <td colspan="1">
+                                <buttom id="add-btn" class="btn btn-outline-dark px-4 float-md-right" title="Add">
+                                    <svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
+                                            clip-rule="evenodd" />
+                                        <path fill-rule="evenodd"
+                                            d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </buttom>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chloroquine JS -->
+    <script src="../../lib/Chloroquine.js"></script>
+
+    <!-- Options script -->
+    <script src="../main/options.js"></script>
+
+    <!-- Page script -->
+    <script src="page.js"></script>
+</body>
+
+</html>

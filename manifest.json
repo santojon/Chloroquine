@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "Chloroquine",
+  "version": "0.1.0",
+  "description": "Chloroquine",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "./lib/Chloroquine.js",
+        "./src/main/options.js",
+        "./src/main/main.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "./src/options/options.html",
+    "chrome_style": true
+  },
+  "permissions": [
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "name": "Chloroquine Options"
+  },
+  "background": {
+    "scripts": [
+      "./src/main/background.js"
+    ]
+  }
+}
