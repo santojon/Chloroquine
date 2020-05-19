@@ -1,2 +1,2 @@
-// Restore Chloroquine da ta and run terms replacer
+// Restore Chloroquine data and run terms replacer
 restoreOptions()

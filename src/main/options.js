@@ -34,7 +34,7 @@ saveOptions = (term, replacement) => {
                 { [storageLabel]: data },
                 () => {
                     // After save restore to page
-                    updateUI(term, replacement)
+                    buildUI({ [storageLabel]: data }, true)
                 }
             )
         }
@@ -47,7 +47,7 @@ saveOptions = (term, replacement) => {
 // ------------------------------
 
 /**
- * Removes option for passed term
+ * Removes option for passed term (used only in options page)
  * @param {String} term: Term to remove from mappings
  */
 deleteOption = (term) => {
@@ -62,7 +62,13 @@ deleteOption = (term) => {
         { [storageLabel]: data },
         () => {
             // Save to sync storage
-            chrome.storage.sync.set({ [storageLabel]: data })
+            chrome.storage.sync.set(
+                { [storageLabel]: data },
+                () => {
+                    // Update the UI
+                    buildUI({ [storageLabel]: data }, true)
+                }
+            )
         }
     )
 }
@@ -119,9 +125,21 @@ restoreOptions = (reflectOnUI) => {
 /**
  * Update UI to reflect data (used only in options page)
  * @param {Object} mappings: Options mp to reflect on UI
+ * @param {Boolean} fromScratch: Set to re-build using given data
+ *                               removing existent rows from the UI
  */
-buildUI = (mappings) => {
+buildUI = (mappings, fromScratch) => {
+    // Input row
     addTermRow = document.getElementById('add-term-row')
+
+    // Clear all existing row in the UI if requested
+    if (fromScratch) {
+        while ((addTermRow.nextSibling !== null) && (addTermRow.nextSibling !== undefined)) {
+            addTermRow.parentNode.removeChild(addTermRow.nextSibling)
+        }
+    }
+
+    // For all mappings, add rows
     Object.keys(mappings[storageLabel]).forEach((key) => {
         newRow = document.createElement('tr')
         newRow.innerHTML = '<td colspan ="5">' + key + '</td >' +
@@ -140,37 +158,7 @@ buildUI = (mappings) => {
 
         // Set remove buttom function
         document.getElementById('btn_' + key).addEventListener('click', () => {
-            newRow.parentNode.removeChild(newRow)
             deleteOption(key)
         })
-    })
-}
-
-/**
- * Update UI to reflect data (used only in options page)
- * @param {String} term: Term to add
- * @param {String} replacement: Replacement to add
- */
-updateUI = (term, replacement) => {
-    addTermRow = document.getElementById('add-term-row')
-    newRow = document.createElement('tr')
-    newRow.innerHTML = '<td colspan ="5">' + term + '</td >' +
-        '<td colspan="6">' + replacement + '</td>' +
-        '<td colspan="1">' +
-        '<buttom id="btn_' + term + '" class="btn btn-outline-dark px-4 float-md-right" title="Remove">' +
-        '<svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
-        '<path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd" />' +
-        '<path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd" />' +
-        '</svg >' +
-        '</buttom>' +
-        '</td>'
-
-    // Insert new row after add term row
-    addTermRow.parentNode.insertBefore(newRow, addTermRow.nextSibling)
-
-    // Set remove buttom function
-    document.getElementById('btn_' + term).addEventListener('click', () => {
-        newRow.parentNode.removeChild(newRow)
-        deleteOption(term)
     })
 }
