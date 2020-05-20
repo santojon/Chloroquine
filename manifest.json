@@ -1,13 +1,30 @@
 {
   "manifest_version": 2,
   "name": "Chloroquine",
-  "version": "0.1.2",
+  "version": "0.1.5",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "name": "Chloroquine Options"
+  },
+  "incognito": "spanning",
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "./src/main/background.js"
+    ]
+  },
+  "short_name": "ChlQ",
+  "offline_enabled": true,
   "description": "Term replacer extension for Google Chrome",
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "<all_urls>"
       ],
       "js": [
         "./lib/Chloroquine.js",
@@ -21,17 +38,6 @@
     "chrome_style": true
   },
   "permissions": [
-    "storage",
-    "activeTab",
-    "background"
-  ],
-  "browser_action": {
-    "default_icon": "icon.png",
-    "name": "Chloroquine Options"
-  },
-  "background": {
-    "scripts": [
-      "./src/main/background.js"
-    ]
-  }
+    "storage"
+  ]
 }
